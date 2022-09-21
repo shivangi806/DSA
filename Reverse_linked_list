@@ -1,0 +1,31 @@
+// ITERATIVE WAY OF REVERSING LINKED LIST
+//***********************************************************
+node* reverse(node*&head){
+    node* prev=NULL;
+    node* currt=head;
+    node*next;
+    
+
+    while(currt!=NULL){
+        next=currt->next;
+        currt->next=prev;
+
+        prev=currt;
+        currt=next;
+    }
+    return prev;    /// our new head
+}
+//****************************************************************
+// RECURSION TO REVERSE LINKED LIST
+
+//*******************************************************
+node* reverseRecur(node* &head){
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    node* newhead=reverseRecur(head->next);
+    head->next->next=head;
+    head->next=NULL;
+    return newhead;
+}
+//************************************************************
