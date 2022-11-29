@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void funct(vector<vector<int>>&res,vector<int> insd,int idx,vector<int>& nums){      
+        if(idx==nums.size()){
+            res.push_back(insd);
+            return;
+        }
+        // include
+        insd.push_back(nums[idx]);
+        funct(res,insd,idx+1,nums);
+        insd.pop_back(); // backtracking
+
+        // ignore
+        while(idx < nums.size()-1 && nums[idx]==nums[idx+1]) idx++; // to ignore  the duplicated vectors of the result.
+        funct(res,insd,idx+1,nums);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums){
+        vector<vector<int>> res;
+        sort(nums.begin(),nums.end()); // help in detecting duplicates
+        vector<int> insd; // all subsets without having duplicates
+        funct(res,insd,0,nums);
+        return res;
+    }
+};
