@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int> dq;
+        vector<int> res;
+        int i=0;
+        while(i < nums.size()){
+           if(!dq.empty() && dq.front()==i-k){ // removing out of bounds from deque ( i-k => the first before index of window size k)
+               dq.pop_front();
+           }
+           while(!dq.empty() && nums[dq.back()] <= nums[i]){ //removing the index whose value which is minimum than that maximum element of the bound
+               dq.pop_back();
+           }
+           dq.push_back(i); // pushing the ith index
+           if( (i-k+1 )>=0){    // i-k+1 window size just after that push deque front in the ans
+               res.push_back(nums[dq.front()]);  //
+           }
+           i++;
+        }
+        return res;
+    }
+};
