@@ -22,7 +22,7 @@ public:
         while(!q.empty()){
             vector<int> level;
             int sz=q.size();
-            c++;
+            
             for(int i=0;i<sz;i++){
                 TreeNode* node = q.front();
                 q.pop();
@@ -30,10 +30,10 @@ public:
                 if(node->left!=nullptr) q.push(node->left);
                 if(node->right!=nullptr) q.push(node->right);
             }
-            if(c%2==0) {
+            if(c%2!=0) {
                 reverse(level.begin(),level.end());
             }
-            res.push_back(level);
+            res.push_back(level);c++;
         }
       return res;
     }
