@@ -24,23 +24,21 @@ public:
         q.push(root);
         while(!q.empty()){
             int len =q.size();
-            while(len >0){
-                 Node*temp ;
-                if(len>1){
+            for(int i=0;i<len;i++){
+                Node* temp;
+                if(i< len-1 ){
                     temp = q.front();
                     q.pop();
                     Node* nextAddrs = q.front();
-                    temp->next = nextAddrs ;
+                    temp->next = nextAddrs;  
                 }
                 else{
                    temp = q.front();
-                    q.pop();
+                   q.pop();        
                 }
-                len--;
                 if(temp->left!=NULL) q.push(temp->left);
                 if(temp->right!=NULL) q.push(temp->right);
             }
-                 
         }
         return root ;
     }
