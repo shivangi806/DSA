@@ -19,27 +19,22 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        if(root==NULL) return root;
+        if(!root) return root;
         queue<Node*> q;
         q.push(root);
         while(!q.empty()){
-            int len =q.size();
-            for(int i=0;i<len;i++){
-                Node* temp;
-                if(i< len-1 ){
-                    temp = q.front();
-                    q.pop();
-                    Node* nextAddrs = q.front();
-                    temp->next = nextAddrs;  
-                }
-                else{
-                   temp = q.front();
-                   q.pop();        
-                }
-                if(temp->left!=NULL) q.push(temp->left);
-                if(temp->right!=NULL) q.push(temp->right);
-            }
+            int len = q.size();
+            while(len--){
+                Node* temp = q.front();
+                q.pop();
+                // one new line added only
+                if(len > 0) temp->next = q.front();
+                // ************************
+                if(temp->left) q.push(temp->left);
+                if(temp->right) q.push(temp->right);                                    
+            }                        
         }
-        return root ;
+                        
+        return root;
     }
 };
