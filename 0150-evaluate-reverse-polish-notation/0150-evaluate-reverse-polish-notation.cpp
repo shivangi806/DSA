@@ -1,22 +1,23 @@
 class Solution {
 public:
-    int evalRPN(vector<string>& s) {
+    int evalRPN(vector<string>& t) {
         stack<int> st;
-        int n = s.size();
+        int n = t.size();
         for(int i=0;i<n;i++){
-           if(s[i]=="+" || s[i]=="-" || s[i]=="*" || s[i]=="/"){
-               int num2 = st.top();st.pop();
-               int num1 = st.top();st.pop();
-               if(s[i]=="+") st.push(num1+num2);
-               if(s[i]=="-") st.push(num1-num2);
-               if(s[i]=="*") st.push(num1*num2);
-               if(s[i]=="/") st.push(num1/num2);
-           }
+            if(t[i]!="+" && t[i]!="-" && t[i]!="*" && t[i]!="/"){
+                st.push(stoi(t[i]));
+            }
             else{
-               st.push(stoi(s[i]));
+                int n1 = st.top();
+                st.pop();
+                int n2 = st.top();
+                st.pop();
+                if(t[i]=="+") st.push(n1+n2);
+                if(t[i]=="-") st.push(n2-n1);
+                if(t[i]=="*") st.push(n1*n2);
+                if(t[i]=="/") st.push(n2/n1);
             }
         }
-        
         return st.top();
     }
 };
