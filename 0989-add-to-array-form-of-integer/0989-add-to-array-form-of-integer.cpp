@@ -5,9 +5,10 @@ public:
         int i = num.size()-1;
         int carry =0;
         while(i>=0 || k>0){
-            int sum=carry;
+            int sum=0;
             if(i>=0) sum+=num[i--];
             sum+=k%10;
+            if(carry!=0) sum+=carry;
             carry = sum/10;
             k/=10;
             ans.push_back(sum%10);
