@@ -11,16 +11,17 @@
  */
 class Solution {
 public:
-    void postorder(TreeNode* root){
-        if(root==NULL) return;
-        postorder(root->left);
-        postorder(root->right);
-        TreeNode* temp = root->left;
+    
+    void solve(TreeNode* root){
+        if(root==NULL) return ;
+        solve(root->left);
+        solve(root->right);
+        TreeNode* toChange = root->left;
         root->left = root->right;
-        root->right = temp;
+        root->right=toChange;
     }
     TreeNode* invertTree(TreeNode* root) {
-        postorder(root);
+        solve(root);
         return root;
     }
 };
