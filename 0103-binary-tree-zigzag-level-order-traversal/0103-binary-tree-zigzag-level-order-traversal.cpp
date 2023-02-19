@@ -12,29 +12,26 @@
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        vector<vector<int>> res;
+        // level order traversal in tree karo
         queue<TreeNode*> q;
         q.push(root);
-        if(root==nullptr){
-            return res;
-        }
-        int c=0;
+        vector<vector<int>> ans;
+        int itr =0;
+        if(root==NULL) return ans ;
         while(!q.empty()){
-            vector<int> level;
-            int sz=q.size();
-            
-            for(int i=0;i<sz;i++){
+            int len = q.size();
+            vector<int> ds;
+            for(int i=0;i<len;i++){
                 TreeNode* node = q.front();
                 q.pop();
-                level.push_back(node->val);
-                if(node->left!=nullptr) q.push(node->left);
-                if(node->right!=nullptr) q.push(node->right);
+                ds.push_back(node->val);
+                if(node->left!=NULL) q.push(node->left);
+                if(node->right!=NULL) q.push(node->right);
             }
-            if(c%2!=0) {
-                reverse(level.begin(),level.end());
-            }
-            res.push_back(level);c++;
+            itr++;
+            if(itr%2==0) reverse(ds.begin(),ds.end());
+            ans.push_back(ds);
         }
-      return res;
+        return ans ;
     }
 };
