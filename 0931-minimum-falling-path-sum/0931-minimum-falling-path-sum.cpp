@@ -1,27 +1,27 @@
 class Solution {
 public:
-    
-    
-    int solve (int i , int j , vector<vector<int>>&matrix , vector<vector<int>>&dp){
-        int n = matrix.size();
-        int m = matrix[0].size();
-        
-        if(j<0 || j>m-1) return 1e9 ;
-        if(i==n-1) return matrix[i][j];
-        if(dp[i][j]!=-1) return dp[i][j];
-        int x1 = matrix[i][j] + solve(i+1,j,matrix,dp); // for down
-        int x2 = matrix[i][j] + solve(i+1,j-1,matrix,dp); // for left diag
-        int x3 = matrix[i][j] + solve(i+1,j+1,matrix,dp); // for right diag
-        return dp[i][j]= min({x1,x2,x3});
-        
-    }
     int minFallingPathSum(vector<vector<int>>& matrix) {
         int n = matrix.size();
         int m = matrix[0].size();
-        int ans = INT_MAX ;
-        vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
-        for(int col=0;col<m;col++){
-            ans = min(ans , solve(0,col,matrix,dp));
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        for(int j=0;j<n;j++){
+            dp[0][j] = matrix[0][j] ;
+        }
+        for(int i=1;i<n;i++){
+            for(int j=0;j<m;j++){
+                 int up , leftd=matrix[i][j], rightd=matrix[i][j] ;
+                  up = dp[i-1][j] + matrix[i][j] ;
+                 if(j>0)  leftd +=dp[i-1][j-1] ;
+                 else leftd+=1e9;
+                
+                 if(j<m-1)  rightd+= dp[i-1][j+1] ;
+                 else rightd += 1e9 ;
+                 dp[i][j] = min({up,leftd,rightd});
+            }
+        }
+        int ans = INT_MAX;
+        for(int j=0;j<m;j++){
+            ans = min(ans , dp[n-1][j]);
         }
         return ans ;
     }
