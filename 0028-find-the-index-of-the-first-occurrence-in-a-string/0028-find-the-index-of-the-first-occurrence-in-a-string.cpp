@@ -1,23 +1,26 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        int n = haystack.size();
-        int m= needle.size();
-        // n bada and m chota hoga tb hi possible hoga
-        if(n<m) return -1;
-        if(n==m && haystack==needle) return 0;
-        for(int i=0;i<n;i++){
-             int f=1;
-            for(int j=0;j<m;j++){
-                if(needle[j]!=haystack[j+i]){
-                    f=0;
-                    break;
-                }
-            }
-            if(f==1){
-                return i;
+        // next method
+        // by first finding the first character of needle in haystack and then check the substring is equal or not if not then move forward to chcek another i position in haystack where we found the first character of the needle
+        
+        int n= haystack.size();
+        int m = needle.size();
+        int ans =-1;
+        int i=0;
+        while(i<n){
+            // find first character of needle in haystack
+            auto itr = find(haystack.begin()+i,haystack.end(),needle[0]);
+            // now substring check karenge
+            int pos = itr-haystack.begin();
+            string str = haystack.substr(pos , m);
+            if(str==needle) {
+                ans = pos;
+                break;
+            }else{
+                i++;
             }
         }
-        return -1;
+        return ans;
     }
 };
