@@ -14,13 +14,14 @@ public:
     vector<int> v ;
     Solution(ListNode* head) {
        temp=head;
-    }
-    
-    int getRandom() {
         while(temp!=NULL){
             v.push_back(temp->val);
             temp=temp->next;
         }
+    }
+    
+    int getRandom() {
+       
         int mod = v.size() ;
         return v[rand()%mod] ;
     }
