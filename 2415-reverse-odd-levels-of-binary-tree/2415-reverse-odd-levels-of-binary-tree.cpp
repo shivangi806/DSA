@@ -20,28 +20,31 @@ public:
         while(!q.empty()){
             int len = q.size();
             vector<TreeNode*> nodevec;
-            vector<int>  valvec;
+            //vector<int>  valvec;
             for(int i=0;i<len;i++){
                 TreeNode* x = q.front();
                 q.pop();
-                valvec.push_back(x->val);
-                nodevec.push_back(x);
+                //valvec.push_back(x->val);
+                
                 if(x->left) q.push(x->left);
                 if(x->right) q.push(x->right);
+                nodevec.push_back(x);
             }
             
             // yha mere paas each level ka value vector and node vector aa gya
             if(c%2==0){
-                reverse(valvec.begin(),valvec.end());
-                for(int i=0;i<nodevec.size();i++){
-                TreeNode* m = nodevec[i];
-                m->val = valvec[i];
+                int i = 0 , j = nodevec.size()-1;
+                while(i<j){
+                    int x = nodevec[i]->val;
+                    int y = nodevec[j]->val;
+                    nodevec[i]->val = y;
+                    nodevec[j]->val = x;
+                    i++;
+                    j--;
+                }
             }
-               }
-            
-            
             c++;
-        }
-        return root ;
+               }
+        return root;
     }
 }; 
