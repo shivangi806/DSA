@@ -1,23 +1,25 @@
 class Solution {
 public:
-    vector<vector<int>> subsets(vector<int>& nums) {
-       // powerset  ka size
+    
+    void solve(int idx ,vector<int>& nums,vector<int>& ds , vector<vector<int>>&res){
         int n = nums.size();
-        int ps_size = pow(2,n);
-        int eachSetlen = n;
-        vector<vector<int>> ans ;
-        for(int i=0;i<ps_size;i++){
-            vector<int> ds;
-            for(int j=0;j<n;j++){
-                // agar vo bit set hua
-                if(i & (1<<j)){
-                    // ds me push kar
-                    ds.push_back(nums[j]);
-                }
-            }
-            ans.push_back(ds);
+        if(idx==n){
+            res.push_back(ds);
+            return ;
         }
-        sort(ans.begin(),ans.end());
-        return ans ;
+        // take that element
+        ds.push_back(nums[idx]);
+        solve(idx+1 ,nums,ds,res);
+        ds.pop_back();
+        
+        // no take that element
+        solve(idx+1 , nums ,ds , res);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        // ab hame karenge isko recursion se
+        vector<vector<int>> res ;
+        vector<int> ds;
+        solve(0,nums,ds,res);
+        return res ;
     }
 };
