@@ -16,7 +16,7 @@ public:
         int n = grid.size();
         int m = grid[0].size();
         
-        grid[i][j]=1;// kind of showing visited 
+        grid[i][j]=2;// kind of showing visited 
         if(valid(i+1,j,grid)) dfs(i+1,j,grid);
         if(valid(i-1,j,grid)) dfs(i-1,j,grid);
         if(valid(i,j+1,grid)) dfs(i,j+1,grid);
