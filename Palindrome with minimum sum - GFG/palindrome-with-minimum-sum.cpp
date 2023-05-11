@@ -12,9 +12,9 @@ class Solution {
   public:
     int minimumSum(string s) {
         // code here
+        vector<char> v ;
         int n = s.size();
-        int l=0;
-        int h=n-1;
+        int l=0 , h = n-1;
         while(l<=h){
             if(s[l]!=s[h]){
                 if(s[l]=='?'){
@@ -25,21 +25,20 @@ class Solution {
                 }
                 else return -1 ;
             }
-            l++;h--;
+            l++;
+            h--;
         }
-        char x = '>';
-        int sum =0;
         for(int i=0;i<n;i++){
-            if(s[i]!='?')
-            {
-                if(x!='>')
-                {
-                    sum+=abs(s[i]-x);
-                    x=s[i];
-                }else{
-                    x=s[i];
-                }
+            if(s[i]!='?') {
+                v.push_back(s[i]);
+                // cout<<s[i];
             }
+        }
+    
+        if(v.size()<=1) return 0;
+        int sum =0;
+        for(int i=1;i<v.size();i++){
+            sum+=abs(v[i]-v[i-1]);
         }
         return sum ;
     }
