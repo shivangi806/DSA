@@ -12,35 +12,36 @@ class Solution {
   public:
     int minimumSum(string s) {
         // code here
-        int low = 0, high = s.size()-1;
-        int sum = 0;
-        while(low<high){
-            if(s[low]!=s[high]){
-                if(s[low]=='?'){
-                    s[low]=s[high];
-                }
-                else if(s[high]=='?'){
-                    s[high]=s[low];
-                }
-                else return -1;
-            }
-            low++, high--;
-        }
-        
-        char x = '?';
         int n = s.size();
-        for(int i = 0; i < n; i++){
-           if(s[i]!='?'){
-               if(x=='?'){
-                   x=s[i];
-               }
-               else{
-                   sum += abs(int(s[i]-x));
-                   x=s[i];
-               }
-           } 
+        int l=0;
+        int h=n-1;
+        while(l<=h){
+            if(s[l]!=s[h]){
+                if(s[l]=='?'){
+                    s[l]=s[h];
+                }
+                else if(s[h]=='?'){
+                    s[h]=s[l];
+                }
+                else return -1 ;
+            }
+            l++;h--;
         }
-        return sum;
+        char x = '>';
+        int sum =0;
+        for(int i=0;i<n;i++){
+            if(s[i]!='?')
+            {
+                if(x!='>')
+                {
+                    sum+=abs(s[i]-x);
+                    x=s[i];
+                }else{
+                    x=s[i];
+                }
+            }
+        }
+        return sum ;
     }
 };
 
