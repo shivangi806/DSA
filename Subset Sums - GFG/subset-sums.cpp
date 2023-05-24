@@ -7,37 +7,24 @@ class Solution
 {
 public:
 
-    void solve(vector<int>&A,vector<int>&ds,int i,int sum){
-        if(i>=A.size()){
-            ds.push_back(sum); // at max ans me n elements honge so o(n)
+    void solve(int i, vector<int>&arr,int N , int sum,vector<int>&ans){
+        if(i==N){
+            ans.push_back(sum);
             return ;
         }
-        // for generating all subsets calling function 2 times for each element
-        // O(2^n)
-        // take 
-        // ds.push_back(A[i]);
-        sum+=A[i];
-        solve(A,ds,i+1,sum);
-        sum-=A[i];
-        // ds.pop_back();
+        solve(i+1 , arr ,N , sum+arr[i] , ans);
         
-        // notake
-        solve(A,ds,i+1,sum);
+        solve(i+1 , arr , N,sum , ans);
     }
     vector<int> subsetSums(vector<int> arr, int N)
     {
         // Write Your Code here
-        // first sol : generate all subsets formed
-        // collect it in temp vector
-        // collect all those temp in vector of vector ans 
-        // then sum all temp by iterating to all temp in ans 
-        // vector<vector<int>> ans ;
-        vector<int> ds;
-        int sum =0;
-        solve(arr , ds, 0,sum);
-        // sorting takes O(nlogn) ;
-        // sort(ans.begin(),ans.end());
-        return ds ;
+        // i have to collect all the subsets sum
+        // that is may be the element will be in our sum or it may not
+        int sum = 0;
+        vector<int> ans;
+        solve(0,arr,N,sum,ans);
+        return ans;
     }
 };
 
