@@ -12,13 +12,19 @@ class Solution{
     
     string longestCommonPrefix (string arr[], int N)
     {
-        // your code here
+    // your code here
     string ans ;
-    sort(arr,arr+N);
-    string x = arr[0];
-    string y = arr[N-1];
+    // sort(arr,arr+N);
     for(int i=0;i<arr[0].size();i++){
-        if(x[i]==y[i]) ans.push_back(x[i]);
+        char ch = arr[0][i] ;
+        bool match = true;
+        for(int j=0;j<N;j++){
+            if(arr[j].size()<i || ch!=arr[j][i]){
+                match=false;
+                break;
+            }
+        }
+        if(match) ans+=ch;
         else break;
     }
     if(ans.size()==0) return "-1";
