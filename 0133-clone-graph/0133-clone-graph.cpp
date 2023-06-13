@@ -21,25 +21,16 @@ public:
 
 class Solution {
 public:
-    
-    map<Node* , Node*> mp;
-    Node* cloneGraph(Node* root) {
-        if(root==NULL) return NULL;
-        Node* newbee = new Node(root->val , {}); // node val    ,     vector of neighbours
-        mp[root] = newbee ;
-        queue<Node*> q;
-        q.push(root) ;
-        while(!q.empty()){
-            auto temp = q.front();
-            q.pop();
-            for(auto it : temp->neighbors){
-                if(!mp[it]){
-                    mp[it]=new Node(it->val , {});
-                    q.push(it);
-                }
-                mp[temp] ->neighbors.push_back(mp[it]);
+    map<Node*,Node*> mp;
+    Node* cloneGraph(Node* node) {
+        if(node==NULL) return NULL;
+        
+        if(mp.find(node)==mp.end()){
+            mp[node]=new Node(node->val,{});
+            for(auto it : node->neighbors){
+                mp[node]->neighbors.push_back(cloneGraph(it));
             }
         }
-        return mp[root] ;
+        return mp[node];
     }
 };
