@@ -1,36 +1,34 @@
 class Solution {
 public:
-    int dp[2001][2001];
-    int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
-        int n1 = arr1.size(), n2 = arr2.size(), ans;
-        sort(arr2.begin(), arr2.end());
-        memset(dp, -1, sizeof(dp));
-        ans = helper(arr1, arr2, 0, n1, n2);
-        return ans > n1? -1 : ans;
-    }
-
-    int helper(vector<int> &arr1, vector<int> &arr2, int idx, int &n1, int &n2){
-        if( idx == n1 ){
+    int flag =0;
+    int solve(int i, int j, int prev, vector<int>& arr1, vector<int>& arr2, vector<vector<int>>& dp) {
+        if (i == arr1.size())
+        {
+            flag =1;
             return 0;
         }
- 
-        int prev = idx==0? -1 : arr1[idx-1], temp;
-        int i = upper_bound(arr2.begin(), arr2.end(), prev) - arr2.begin();
 
-        if( dp[idx][i] == -1 ){
-            dp[idx][i] = 2001;
-            
-            if( idx == 0 || arr1[idx] > arr1[idx-1] ){
-                dp[idx][i] = min(dp[idx][i], helper(arr1, arr2, idx+1, n1, n2));
-            }
+        if (dp[i][j] != -1)
+            return dp[i][j];
 
-            if( i < n2 ){
-                temp = arr1[idx], arr1[idx] = arr2[i];
-                dp[idx][i] = min(dp[idx][i], helper(arr1, arr2, idx+1, n1, n2) + 1);
-                arr1[idx] = temp;
-            }
-        }
+        int ans = 1e9;
+        if (arr1[i] > prev)
+            ans = min(ans, solve(i + 1, j, arr1[i], arr1, arr2, dp));
+        
+        j = upper_bound(arr2.begin(), arr2.end(), prev) - arr2.begin();
+        if (j < arr2.size())
+            ans = min(ans, 1 + solve(i + 1, j+1, arr2[j], arr1, arr2, dp));
 
-        return dp[idx][i];
+        return dp[i][j] = ans;
+    }
+
+    int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
+        int n = arr1.size();
+        int m = arr2.size();
+        sort(arr2.begin(), arr2.end());
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, -1));
+        int ans = solve(0, m, -1, arr1, arr2, dp); // Start with j = m instead of j = 0
+        if(!flag) return -1;
+        return ans ;
     }
 };
