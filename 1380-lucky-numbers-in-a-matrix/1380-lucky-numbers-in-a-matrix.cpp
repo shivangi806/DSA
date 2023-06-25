@@ -21,10 +21,10 @@ public:
             colmax.push_back(maxi);
         }
         vector<int> ans ;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(matrix[i][j]==rowmin[i] && matrix[i][j]==colmax[j]){
-                    ans.push_back(matrix[i][j]);
+        for(int i=0;i<rowmin.size();i++){
+            for(int j=0;j<colmax.size();j++){
+                if(rowmin[i]==colmax[j]){
+                    ans.push_back(colmax[j]);
                 }
             }
         }
