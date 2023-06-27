@@ -22,9 +22,31 @@ public:
         }
         return dp[i][canbuy] = ans ;
     }
+    int solvetb(vector<int>& p){
+        int n = p.size();
+        vector<vector<int>> dp(n+1,vector<int>(2,0));
+        for(int i=n-1;i>=0;i--){
+            for(int j=0;j<=1;j++){
+                
+                if(j==1){
+                int buykaro = -p[i] + dp[i+1][0];
+                int nibuykaro = dp[i+1][1];
+
+                dp[i][j]=max(buykaro,nibuykaro);
+                }
+                else{
+                    int sellkaro = p[i]+dp[i+1][1];
+                    int nisellkaro = dp[i+1][0];
+                    dp[i][j] = max(sellkaro,nisellkaro);
+                }
+            }
+        }
+        return dp[0][1];
+    }
     int maxProfit(vector<int>& p) {
         int n = p.size();
-        memset(dp,-1,sizeof(dp));
-        return solve(0,1,p);
+        // memset(dp,-1,sizeof(dp));
+        // return solve(0,1,p);
+        return solvetb(p);
     }
 };
