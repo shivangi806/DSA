@@ -3,8 +3,7 @@ public:
     int n ;
     bool pal(string &s , int i , int j){
         while(i<j){
-            if(s[i]!=s[j]) return 0;
-            i++,j--;
+            if(s[i++]!=s[j--]) return 0;
         }
         return 1;
     }
@@ -22,12 +21,9 @@ public:
     }
     int minCut(string s) {
         n=s.size();
-        vector<int>dp(n,-1);
-        // dp.resize(n+1,-1);
+        vector<int>dp;
+        dp.resize(n+1,-1);
         if(pal(s,0,n-1)) return 0;
         return solve(s,0,dp)-1; 
     }
 };
-
-
-
