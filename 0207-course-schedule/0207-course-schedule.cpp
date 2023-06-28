@@ -1,37 +1,36 @@
 class Solution {
 public:
     
-    bool detectCycle(int n ,vector<int> adj[] , vector<int>&vis,vector<int>&dfsvis,int idx){
-        vis[idx]=1;
-        dfsvis[idx]=1;
-        for(auto it : adj[idx]){
+    bool cycle(int node , vector<int>&vis , vector<int>&dvis , vector<int>adj[]){
+        vis[node]=1;
+        dvis[node]=1;
+        for(auto it : adj[node]){
             if(!vis[it]){
-//return detectCycle(n,p,vis,dfsvis,it);
-                if(detectCycle(n,adj,vis,dfsvis,it)) return true;
+                if(cycle(it,vis,dvis,adj)) return 1;
             }
             else{
-                if(dfsvis[it]){
-                    return true;
-                }
+                if(dvis[it]==1) return 1;
             }
         }
-        dfsvis[idx]=0;
-        return false;
+        dvis[node]=0;
+        return 0;
     }
     bool canFinish(int n, vector<vector<int>>& p) {
-        // cycle detection in directed graph concept
-        // dfs traversal karte h 
-        // vis and dfsvisit lenge
-        vector<int> adj[n+1];
-        for(auto it : p){
-            adj[it[0]].push_back(it[1]);
+        // if no cycle then can complete
+        vector<int> adj[n];
+        for(int i=0;i<p.size();i++){
+            int u = p[i][0];
+            int v = p[i][1];
+            adj[v].push_back(u);
         }
-        vector<int>vis(n+1,0),dfsvis(n+1,0);
+        
+        // cycle detect using bfs
+        vector<int> vis(n+1 , 0),dvis(n+1,0);
         for(int i=0;i<n;i++){
             if(!vis[i]){
-                if(detectCycle(n,adj,vis,dfsvis,i)) return false;
+                if(cycle(i,vis,dvis,adj)) return 0;
             }
         }
-       return true; 
+        return 1;
     }
 };
