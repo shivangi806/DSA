@@ -22,7 +22,7 @@ public:
     }
     int minCut(string s) {
         n=s.size();
-        vector<int> dp(n,-1);
+        vector<int> dp(n+1,-1);
         return solve(s,0,dp); 
     }
 };
