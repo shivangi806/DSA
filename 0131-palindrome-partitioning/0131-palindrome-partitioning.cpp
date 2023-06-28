@@ -1,31 +1,33 @@
 class Solution {
 public:
-    bool valid(string  s , int l , int h){
-        while(l<=h){
-            if(s[l++]!=s[h--]){
-                return false;
-            }
+    
+    int dp[20];
+    int n ;
+    bool pal(string &s , int i , int j){
+        while(i<=j){
+            if(s[i++]!=s[j--]) return 0;
         }
-        return true;
+        return 1;
     }
-    void recur( vector<vector<string>>&ans , vector<string>&ds , string s , int idx){
-        if(idx==s.size()) {
-            ans.push_back(ds);
-            return;
+    void solve(string &s , vector<string>&ds , vector<vector<string>>&res , int i){
+        if(i>=s.size()){
+            res.push_back(ds);
+            return ;
         }
-        
-        for(int i=idx;i<s.size();i++){
-            if(valid(s,idx,i)){
-                ds.push_back(s.substr(idx , i-idx+1));
-                recur(ans,ds,s,i+1);
+        for(int k=i;k<n;k++){
+            if(pal(s,i,k)){
+                ds.push_back(s.substr(i ,k-i+1));
+                solve(s , ds , res, k+1);
                 ds.pop_back();
             }
         }
+        
     }
     vector<vector<string>> partition(string s) {
-        vector<vector<string>> ans;
+        n=s.size();
         vector<string> ds;
-        recur(ans,ds,s,0);
-        return ans ;
+        vector<vector<string>> res;
+        solve(s , ds , res ,0);
+        return res ;
     }
 };
