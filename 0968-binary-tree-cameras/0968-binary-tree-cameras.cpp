@@ -12,24 +12,22 @@
 class Solution {
 public:
     int c=0;
-    string wantsCamera(TreeNode* root){
-        if(root==NULL) return "inWatch";
+    string solve(TreeNode* root){
+        if(root==NULL) return "ok";
         
-        string lefty = wantsCamera(root->left);
-        string righty = wantsCamera(root->right);
-        if(lefty=="wantCam" || righty == "wantCam"){
+        string lf = solve(root->left);
+        string rg = solve(root->right);
+        if(lf=="needcam" || rg=="needcam"){
             c++;
-            return "provideCam";
+            return "provider";
+        }else if(lf=="provider" || rg=="provider"){
+            return "ok";
         }
-        else if(lefty=="provideCam" || righty=="provideCam"){
-            return "inWatch";
-        }
-        return "wantCam" ;
+        return "needcam";
     }
     int minCameraCover(TreeNode* root) {
-        if(wantsCamera(root)=="wantCam"){
-            c++;
-        }
+        if(!root) return NULL;
+        if(solve(root)=="needcam") c++;
         return c;
     }
 };
