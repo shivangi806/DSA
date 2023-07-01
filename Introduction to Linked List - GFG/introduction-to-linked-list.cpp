@@ -51,14 +51,14 @@ public:
 class Solution {
   public:
     Node* constructLL(vector<int>& arr) {
-        Node* head = new Node();
-        Node* temp=head;
-        for(int i=0;i<arr.size();i++){
-            Node* x = new Node(arr[i]);
+        Node* head = new Node(arr[0]);
+        Node* temp = head;
+        for(int i=1;i<arr.size();i++){
+            Node * x = new Node(arr[i]);
             temp->next = x;
-            temp=x;
+            temp=temp->next;
         }
-        return head->next;
+        return head ;
     }
 };
 
