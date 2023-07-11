@@ -28,7 +28,7 @@ public:
             solve(root->children[i],ans);
         }
         ans.push_back(root->val);
-        // return ;
+        return ;
     }
     vector<int> postorder(Node* root) {
         vector<int> ans ;
