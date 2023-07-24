@@ -5,38 +5,27 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-    
-    private : 
-    int solve(int e , int f,vector<vector<int>>&dp){
-        // if(e==0 || f==0){
-        //     return 0;
-        // }
-        
-        // if(e==1) return f;
-        // if(f==1) return f;
-        if(f==0 || f==1) return f;
-        if(e==1) return f;
-        
-        
-        if(dp[e][f]!=-1) return dp[e][f];
-        int ans = INT_MAX;
-        for(int k=1;k<=f;k++){
-            // int temp = 1 + solve(e-1,k-1) + solve(e,f-k);
-            // ans = min(ans , temp);
-            int temp = 1 + max(solve(e-1,k-1,dp)  , solve(e,f-k,dp));
-            ans = min(ans , temp);
-        }
-        return  dp[e][f] = ans ;
-    }
     public:
     //Function to find minimum number of attempts needed in 
     //order to find the critical floor.
+    vector<vector<int>> dp;
+    int solve(int egg , int flr){
+        if(egg==1) return flr;
+        if(flr==0 || flr==1) return flr;
+        
+        if(dp[egg][flr]!=-1) return dp[egg][flr];
+        int ans = INT_MAX;
+        for(int k=1;k<=flr;k++){
+            int tmp = 1 + max(solve(egg-1,k-1) , solve(egg,flr-k));
+            ans = min(ans,tmp);
+        }
+        
+        return dp[egg][flr] = ans ;
+    }
     int eggDrop(int n, int k) 
     {
-        // your code here
-        // decide i nd j
-        vector<vector<int>> dp(n+1 , vector<int>(k+1 , -1));
-        return solve(n,k,dp);
+        dp.resize(n+1,vector<int>(k+1,-1));
+        return solve(n,k);
     }
 };
 
