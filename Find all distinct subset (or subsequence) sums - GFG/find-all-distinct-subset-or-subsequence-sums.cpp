@@ -5,7 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    #define ll long long
+	#define ll long long
     void solve(int i , int sum , vector<int>&nums , set<int>&st ,vector<vector<int>>&dp){
         if(i>=nums.size()){
             st.insert(sum);
