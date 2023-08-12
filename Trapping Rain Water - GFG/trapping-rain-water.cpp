@@ -11,20 +11,20 @@ class Solution{
     public:
     #define ll long long
     long long trappingWater(int arr[], int n){
+        ll ans = 0;
         vector<int> lp(n) , rp(n);
         lp[0]=0;
         rp[n-1]=0;
         for(int i=1;i<n;i++){
-            lp[i] = max(lp[i-1] , arr[i-1]);
+            lp[i]=max(lp[i-1],arr[i-1]);
         }
         for(int i=n-2;i>=0;i--){
-            rp[i]= max(rp[i+1] , arr[i+1]);
+            rp[i]=max(rp[i+1],arr[i+1]);
         }
-        ll ans = 0;
         for(int i=0;i<n;i++){
-            int hg = min(lp[i],rp[i]);
-            if(hg>arr[i]){
-                ans+=(hg-arr[i]);
+            int mx = min(lp[i],rp[i]);
+            if(arr[i]<mx){
+                ans+=(mx-arr[i]);
             }
         }
         return ans ;
