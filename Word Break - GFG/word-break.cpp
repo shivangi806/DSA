@@ -15,27 +15,22 @@ class Solution
 {
 public:
 
-    bool solve(int i, string &A, vector<string> &B, int n, int m) {
-    if (i == n) {
-        return true; // Successfully processed the entire string
-    }
-
-    for (int k = 0; k < m; k++) {
-        string s = B[k];
-        int len = s.size();
-        
-        if (i + len <= n && A.substr(i, len) == s) {
-            if (solve(i + len, A, B, n, m)) {
-                return true;
+    int solve(int i , int n , int m , string &A , vector<string>&B){
+        if(i>=n) return 1;
+        string ds;
+        for(int k=0;k<m;k++){
+            ds=B[k];
+            int len =ds.size();
+            if(i+len<=n && A.substr(i,len)==ds){
+                if(solve(i+len,n,m,A,B)) return 1;
             }
         }
+        return 0;
     }
-    return false;
-}
     int wordBreak(string A, vector<string> &B) {
         int n = A.size();
-        int m = B.size();
-        return solve(0,A,B,n,m);
+        int  m = B.size();
+        return solve(0,n,m,A,B);
     }
 };
 
