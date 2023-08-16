@@ -8,7 +8,7 @@ class Solution{
 	public:
 	
 	int solve(int n ,int x , int y,vector<int>&dp){
-	    if(n==0) return 0;
+	   // if(n==0) return 0;
 	    if(n==1) return 1;
 	    int a=1,b=1,c=1;
 	    
