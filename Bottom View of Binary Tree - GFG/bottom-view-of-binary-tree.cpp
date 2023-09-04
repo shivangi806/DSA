@@ -96,25 +96,21 @@ Node* buildTree(string str)
 class Solution {
   public:
     vector <int> bottomView(Node *root) {
-        // Your Code Here
-        vector<int> ans;
         queue<pair<Node* , int>> q;
-        int line = 0;
-        q.push({root,0});
-        // line ans node val rhega
-        map<int , int> mp;
-        while(!q.empty())
-        {
-            auto it = q.front();
-            q.pop();
-            line = it.second;
-            mp[line]=it.first->data;
-            if(it.first->left) q.push({it.first->left , line-1});
-            if(it.first->right) q.push({it.first->right , line+1});
-        }
+        q.push({root , 0});
+        vector<int> ans ;
+        map<int,int> mp;
+        while(!q.empty()){
         
-        for(auto it : mp)
-        {
+            Node* nd = q.front().first;
+            int line = q.front().second;
+            q.pop();
+            mp[line] = nd->data;
+            if(nd->left) q.push({nd->left, line-1});
+            if(nd->right) q.push({nd->right , line+1});
+            
+        }
+        for(auto it : mp){
             ans.push_back(it.second);
         }
         return ans ;
