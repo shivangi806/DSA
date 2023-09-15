@@ -5,20 +5,15 @@ public:
         for(int i=0;i<s.size();i++){
             mp[s[i]]++;
         }
-        vector<int> v;
-        for(auto it : mp){
-            v.push_back(it.second);
-            // cout<<it.second<<endl;;
-        }
         set<int> st;
         int c=0;
-        sort(v.begin(),v.end());
-        for(int i=0;i<v.size();i++){
-            while(st.find(v[i])!=st.end() && v[i]>0){
-                v[i]--;
+        for(auto it : mp){
+            int freq = it.second;
+            while(st.find(freq)!=st.end() && freq>0){
+                freq--;
                 c++;
             }
-            st.insert(v[i]);
+            st.insert(freq);
         }
         return c;
     }
