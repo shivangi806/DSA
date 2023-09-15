@@ -2,26 +2,27 @@ class Solution {
 public:
     
     int minimumSpanning(vector<pair<int,int>> adj[],int n){
-      priority_queue<pair<int,int> , vector<pair<int,int>> , greater<pair<int,int>>> pq;
-      pq.push({0,0});
+      priority_queue<pair<int,int> ,vector<pair<int,int>> , greater<pair<int,int>>> pq;
+      pq.push({0,0});// wt , node
       vector<int> vis(n,0);
       int sum=0;
       while(!pq.empty()){
-        int dis = pq.top().first;
-        int u = pq.top().second;
-        pq.pop();
-        if(vis[u]) continue;
-        vis[u]=1;
-        sum+=dis;
-        for(auto it : adj[u]){
-          int v = it.first;
-          int dd = it.second;
-          if(!vis[v]){
-            pq.push({dd,v});
+          int node = pq.top().second;
+          int weight = pq.top().first;
+          pq.pop();
+          if(vis[node]) continue;
+          sum+=weight;
+          vis[node]=1;
+          for(auto it : adj[node]){
+              int adjNode=it.first;
+              int adjWeight = it.second;
+              
+              if(!vis[adjNode]){
+                  pq.push({adjWeight , adjNode});
+              }
           }
-        }
       }
-      return sum ;
+      return sum;
     }
     int minCostConnectPoints(vector<vector<int>>& points) {
         int n = points.size();
