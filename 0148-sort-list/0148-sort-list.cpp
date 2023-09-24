@@ -44,11 +44,11 @@ public:
         }
         if(p1!=NULL){
             tt->next= p1;
-            p1=p1->next;
+            // p1=p1->next;
         }
         if(p2!=NULL){
             tt->next= p2;
-            p2=p2->next;
+            // p2=p2->next;
         }
         return temp->next;
     }
