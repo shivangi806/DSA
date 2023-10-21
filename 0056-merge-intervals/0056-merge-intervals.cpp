@@ -1,22 +1,19 @@
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>& intr) {
-        vector<vector<int>> ans ;
-        int i;
-        int n = intr.size();
-        sort(intr.begin(),intr.end());
-        vector<int> ds;
-        ds = intr[0];
-        for(i=1;i<intr.size();i++){
-             if(ds[1] >= intr[i][0]){
-                 ds[1]=max(ds[1],intr[i][1]);
-             }
-             else{
-                 ans.push_back(ds);
-                 ds={intr[i][0],intr[i][1]};
-             }
+    vector<vector<int>> merge(vector<vector<int>>& it) {
+        int n = it.size();
+        sort(it.begin(),it.end());
+        vector<vector<int>> ans;
+        ans.push_back(it[0]);
+        for(int i=1;i<n;i++){
+            if(ans.back()[1]>=it[i][0]){
+                // merge
+                ans.back()[1] = max(ans.back()[1] , it[i][1]);
+            }
+            else{
+                ans.push_back(it[i]);
+            }
         }
-        ans.push_back(ds);
-        return ans ;
+        return ans;
     }
 };
