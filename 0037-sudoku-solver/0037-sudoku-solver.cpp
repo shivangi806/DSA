@@ -10,7 +10,7 @@ public:
         }
         
         for(int k=0;k<n;k++){
-            if(b[3*(i/3) + k%3][3*(j/3) + k/4] == ch) return 0;
+            if(b[3*(i/3) + k%3][3*(j/3) + k/3] == ch) return 0;
         }
         return 1;
     }
